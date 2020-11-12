@@ -44,6 +44,9 @@ class ConfFile:
         if length == 1:
             if not tmp_attr:
                 tmp_attr = type(attr_list[0], (object,), inner_attr)
+#           todo 当文档属性存在相同父属性时，最后读取的子属性将覆盖上一个子属性。
+#           todo 解决方案:getattr，与tmp_attr比较，找到相同的父属性，将新增的子属性绑定上去，而非直接从根部直接替换
+#           一般使用层级式的配置结构很少，基本上通过section已经满足绝大部分的需求。
             setattr(self, attr_list[0], tmp_attr)
             return tmp_attr
         else:
